@@ -1,3 +1,4 @@
+
 services:
   db:
     image: postgres:16-alpine
@@ -16,9 +17,7 @@ services:
       retries: 15
 
   backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
+    image: imdp07/fixflow-backend:latest
     container_name: appliance-repair-backend
     restart: unless-stopped
     environment:
@@ -33,11 +32,7 @@ services:
         condition: service_healthy
 
   frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-      args:
-        VITE_API_BASE_URL: http://localhost:8001
+    image: imdp07/fixflow-frontend:latest
     container_name: appliance-repair-frontend
     restart: unless-stopped
     ports:
